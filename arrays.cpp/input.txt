@@ -1,0 +1,5 @@
+3
+92 20 15
+87 45 43
+80 122 64
+3 false lexicographic

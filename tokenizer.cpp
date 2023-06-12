@@ -4,7 +4,7 @@ using namespace std;
 
 char *myTokenizer(char *str, char delimiter)
 {
-    static char *input = NULL;
+    char *input = NULL;
     if (str != NULL)
     {
         input = str;
@@ -13,14 +13,14 @@ char *myTokenizer(char *str, char delimiter)
     {
         return NULL;
     }
-
-    char *token = new char[strlen(input) + 1];
+    char *token = NULL;
     int i = 0;
-    for (; input[i] != '\0'; i++)
+    for (; input[i] != '\0', i++)
     {
         if (input[i] != delimiter)
         {
             token[i] = input[i];
+            i++;
         }
         else
         {
@@ -31,8 +31,6 @@ char *myTokenizer(char *str, char delimiter)
     }
     token[i] = '\0';
     input = NULL;
-
-    return token;
 }
 
 int main()

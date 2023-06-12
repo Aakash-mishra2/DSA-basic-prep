@@ -25,7 +25,8 @@ int rains(vector<int> arr)
     //     else
     //         right[i] = max;
     // }
-    left[0] = arr[0] int ans = 0;
+    left[0] = arr[0];
+    int ans = 0;
     for (int i = 0; i < arr.size(); i++)
     {
         ans += min(left[i], right[i]) - arr[i];

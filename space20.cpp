@@ -7,29 +7,26 @@ using namespace std;
 
 char *newSpaces(char *input)
 {
-
-    int i = 0, count = 0;
+    int count = 0;
+    int i = 0;
     for (; input[i] != '\0'; i++)
     {
         if (input[i] == ' ')
-        {
             count++;
-        }
     }
-
-    int ne = i + 2 * (count);
-    while (ne > i)
+    int j = i + 2 * count;
+    while (j > i)
     {
         if (input[i] == ' ')
         {
-            input[ne--] = '0';
-            input[ne--] = '2';
-            input[ne--] = '%';
+            input[j--] = '0';
+            input[j--] = '2';
+            input[j--] = '%';
             i--;
         }
         else
         {
-            input[ne--] = input[i--];
+            input[j--] = input[i--];
         }
     }
     return input;

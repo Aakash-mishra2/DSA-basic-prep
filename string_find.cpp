@@ -4,7 +4,7 @@ using namespace std;
 
 int main()
 {
-    string paragraph = "WE are learning about STL strings.UPAR SE ORDER HAI?";
+    string paragraph = "WE are learning about STL strings.are are UPAR SE ORDER HAI?";
     string word;
     getline(cin, word);
     size_t index = paragraph.find(word);

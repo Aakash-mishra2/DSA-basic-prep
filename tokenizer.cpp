@@ -4,7 +4,7 @@ using namespace std;
 
 char *myTokenizer(char *str, char delimiter)
 {
-    char *input = NULL;
+    static char *input = NULL;
     if (str != NULL)
     {
         input = str;

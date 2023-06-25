@@ -10,7 +10,7 @@ vector<vector<int>> triplets(vector<int> arr, int S)
 {
     sort(arr.begin(), arr.end());
     vector<vector<int>> result;
-    for (int i = 0; i < arr.size() - 3; i++)
+    for (int i = 0; i <= arr.size() - 3; i++)
     {
         int first = arr[i];
         int target = S - arr[i];

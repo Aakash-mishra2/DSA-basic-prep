@@ -17,15 +17,16 @@
 using namespace std;
 string extractStringAtKey(string str, int key)
 {
-
-    char *s = strtok((char *)str.c_str(), " ");
+    // cannot use const_cast<char*>(str); ->
+    // strtok ( char *, const char* );
+    char *token = strtok(const_cast<char *>((str).c_str()), " ");
     while (key > 1)
     {
-        s = strtok(NULL, " ");
+        token = strtok(NULL, " ");
         key--;
     }
 
-    return (string)s;
+    return static_cast<string>(token);
 }
 int convertToInt(string s)
 {
@@ -60,28 +61,10 @@ int main()
 
     // 1. to extract keys for comparision and store them.
     vector<pair<string, string>> vp;
-    for (int i = 0; i < n; i++)
+    for (auto str : v)
     {
-        vp.push_back({v[i], extractStringAtKey(v[i], key)});
+        vp.push_back(make_pair(str, extractStringAtKey(str, key)));
     }
-
-    // 2. sorting
-    if (ordering == "lexicographic")
-    {
-        sort(vp.begin(), vp.end(), [](pair<string, string> p1, pair<string, string> p2)
-             { return lexicographical_compare(p1.second.begin(), p1.second.end(), p2.second.begin(), p2.second.end()); });
-    }
-    if (ordering == "numeric")
-    {
-        sort(vp.begin(), vp.end(), [](pair<string, string> p1, pair<string, string> p2)
-             {
-            string input1 = p1.second;
-            string input2 = p2.second;
-            int num1 = convertToInt(input1);
-            int num2 = convertToInt(input2);
-            return num1 < num2; });
-    }
-
     // 3. reversal
     if (reversal == "true")
     {

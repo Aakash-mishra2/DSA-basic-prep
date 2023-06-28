@@ -58,6 +58,6 @@ int main()
 {
     string s1 = "ABBCECDGCC", s2 = "ABC";
     // cin >> s1 >> s2;
-    //    cout << subsequence_count(s1, s2, s1.length() - 1, s2.length() - 1) << endl;
+    cout << subsequence_count(s1, s2, s1.length() - 1, s2.length() - 1) << endl;
     cout << subsequence_countBU(s1, s2) << endl;
 }

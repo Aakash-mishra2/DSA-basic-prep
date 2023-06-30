@@ -5,25 +5,17 @@ string keypad[] = {"", "", "ABC", "DEF", "GHI", "JKL", "MNO", "PQRS", "TUV", "WX
 
 void printKeypadOutput(string input, string output, int i = 0)
 {
-    if (input[i] == '\0')
+    if (i == input.length())
     {
         cout << output << endl;
         return;
     }
 
     int index = input[i] - '0';
-    if (index == 0 or index == 1)
+    for (int z = 0; z < keypad[index].length(); z++)
     {
-        printKeypadOutput(input, output, i + 1);
+        printKeypadOutput(input, output + keypad[index].at(z), i + 1);
     }
-
-    for (int j = 0; j < keypad[index].length(); j++)
-    {
-
-        char ch = keypad[index][j];
-        printKeypadOutput(input, output + ch, i + 1);
-    }
-    return;
 }
 int main()
 {

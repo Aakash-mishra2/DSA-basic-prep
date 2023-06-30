@@ -7,6 +7,10 @@ int min_costSlimes(vector<int> slimes, int l, int r)
 {
 
     int N = slimes.size();
+    if (l == r)
+    {
+        return slimes[l];
+    }
 
     if (dp[l][r] != -1)
     {

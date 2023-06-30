@@ -8,6 +8,7 @@ void generateBrackets(int n, string ans, int open = 0, int close = 0, int i = 0)
         cout << ans << endl;
         return;
     }
+
     if (open <= n - 1)
     {
         generateBrackets(n, ans + '(', open + 1, close, i + 1);

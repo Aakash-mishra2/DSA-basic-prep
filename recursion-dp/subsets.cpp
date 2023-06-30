@@ -1,18 +1,20 @@
 #include <bits/stdc++.h>
 using namespace std;
+// asks subset not subarray
 int countSubsets(vector<int> arr, int n, int i, int X)
 {
+    int count = 0;
     if (i == n)
     {
         if (X == 0)
         {
-            return 1;
+            // found one more way to get subset sum = x.
+            count++;
         }
-        return 0;
+        return count;
     }
-    int inc = countSubsets(arr, n, i + 1, X - arr[i]);
-    int exc = countSubsets(arr, n, i + 1, X);
-    return inc + exc;
+
+    return countSubsets(arr, n, i + 1, X - arr[i]) + countSubsets(arr, n, i + 1, X);
 }
 
 int main()

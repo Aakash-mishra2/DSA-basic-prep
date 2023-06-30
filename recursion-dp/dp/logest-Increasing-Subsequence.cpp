@@ -3,27 +3,22 @@ using namespace std;
 // think about how to print longest inc subseq vector as well or string;
 int longestIncSubsequence(vector<int> input)
 {
-    int n = input.size();
-    vector<int> dp(n, 1);
-
-    for (int z = 1; z < n; z++)
+    vector<int> dp(input.size(), 1);
+    for (int i = 1; i < input.size(); i++)
     {
-        for (int i = 0; i < z; i++)
+        for (int j = 0; j < i; j++)
         {
-            if (input[i] <= input[z])
+            if (input[j] < input[i])
             {
-                dp[z] = max(dp[z], (dp[i] + 1));
+                dp[i] = max(dp[i], dp[j] + 1);
             }
         }
     }
-
     int max = 0;
-    for (auto i : dp)
+    for (auto g : dp)
     {
-        if (i > max)
-        {
-            max = i;
-        }
+        if (g > max)
+            max = g;
     }
     return max;
 }

@@ -3,11 +3,11 @@ using namespace std;
 
 int selling_wines_TD(vector<int> wines, int l, int r, int dp[][10], int y = 1)
 {
-
     if (l > r)
     {
         return 0;
     }
+
     if (dp[l][r] != 0)
     {
         return dp[l][r];
@@ -27,11 +27,11 @@ int selling_winesBU_DP(vector<int> wines, int N)
 {
     vector<vector<int>> dp(N + 1, vector<int>(N + 1, 0));
 
-    for (int i = N - 1; i <= 0; i--)
+    for (int i = N - 1; i >= 0; i--)
     {
         for (int j = 0; j <= N - 1; j++)
         {
-            int year = N - (j - i);
+            int year = N - (j - i + 1);
 
             if (i == j)
             {
@@ -50,6 +50,31 @@ int selling_winesBU_DP(vector<int> wines, int N)
     return dp[0][N - 1];
 }
 
+int selling_winesBU(vector<int> wines)
+{
+    int n = wines.size();
+    vector<vector<int>> dp(n + 1, vector<int>(n + 1, 0));
+    for (int i = n - 1; i >= 0; i--)
+    {
+        for (int j = 0; j <= n - 1; j++)
+        {
+            int year = n - (j - i);
+            if (i == j)
+            {
+                dp[i][j] = wines[i] * year;
+            }
+            else if (i < j)
+            {
+                dp[i][j] = max((wines[i] * year + dp[i + 1][j]), (wines[j] * year + dp[i][j - 1]));
+            }
+            cout << dp[i][j] << ", ";
+        }
+        cout << endl;
+    }
+    cout << endl;
+    return dp[0][n - 1];
+}
+
 int main()
 {
     vector<int> wines = {2, 3, 5, 1, 4};
@@ -57,10 +82,10 @@ int main()
 
     int dp[10][10] = {0};
 
-    cout << selling_wines_TD(wines, l, r, dp);
-    // cout << selling_winesBU_DP(wines, wines.size());
-
-    // print dp array
+    // cout << selling_wines_TD(wines, l, r, dp);
+    //  cout << selling_winesBU_DP(wines, wines.size());
+    cout << selling_winesBU(wines);
+    //   print dp array
 
     return 0;
 }

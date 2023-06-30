@@ -10,20 +10,8 @@ int knapsack(vector<int> weights, vector<int> prices, int N, int W)
     {
         for (int j = 1; j <= W; j++)
         {
-            // BELOW CODE GIVES ANSWER 45 - WRONG - code is right do not
-            // sort weights prices will be mismatched for corresponding items.
-            dp[i][j] = max((dp[i - 1][j]), ((weights[i - 1] <= j) ? (dp[i - 1][j - weights[i - 1]] + prices[i - 1]) : INT_MIN));
 
-            // method two;
-            //      int inc = 0, exc = 0;
-
-            //     if (weights[i - 1] <= j)
-            //     {
-            //         inc = prices[i - 1] + dp[i - 1][j - weights[i - 1]];
-            //     }
-            //     exc = dp[i - 1][j];
-
-            //     dp[i][j] = max(inc, exc);
+            dp[i][j] = max(dp[i - 1][j], ((weights[i - 1] <= j) ? (dp[i - 1][j - weights[i - 1]] + prices[i - 1]) : INT_MIN));
         }
     }
     return dp[N][W];

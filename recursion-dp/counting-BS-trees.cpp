@@ -3,15 +3,6 @@ using namespace std;
 
 int countingTrees(int nodes)
 {
-    int ans = 0;
-    if (nodes == 1 or nodes == 0)
-        return 1;
-
-    for (int i = 1; i <= nodes; i++)
-    {
-        ans += countingTrees(i - 1) * countingTrees(nodes - i);
-    }
-    return ans;
 }
 
 int main()

@@ -1,26 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-pair<int, int> subarray_Sort(vector<int> arr)
-{
-    int n = arr.size();
-    vector<int> b(arr);
-    sort(b.begin(), b.end());
-    int l = 0, r = n - 1;
-
-    for (int i = 0; i < n / 2; i++)
-    {
-        if (arr[i] == b[i])
-        {
-            l++;
-        }
-        if (arr[n - i - 1] == b[n - i - 1])
-        {
-            r--;
-        }
-    }
-    return make_pair(l, r);
-}
 bool outOfOrder(vector<int> arr, int i)
 {
     // element larger that its successor is out of order

@@ -3,16 +3,6 @@ using namespace std;
 
 string longest_band(vector<int> arr, int i = 0)
 {
-    
-}
-string extractStringAtKey(string st, int key)
-{
-    char *token = strtok((char *)st.c_str(), "-");
-    while (key > 1)
-    {
-        token = strtok(NULL, "-");
-    }
-    return token;
 }
 int main()
 {

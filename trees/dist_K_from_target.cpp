@@ -16,81 +16,61 @@ public:
     }
 };
 
-node *buildTree()
+void nodesK_LevelsBelow(node *target, int K)
 {
-    int d;
-    cin >> d;
 
-    if (d == -1)
+    if (K == 0)
     {
-        return NULL;
-    }
-
-    node *n = new node(d);
-
-    n->left = buildTree();
-    n->right = buildTree();
-    return n;
-}
-// descendants and non-descandants both at distance k from target node.
-void printAtLevelK(node *root, int k)
-{
-    if (root == NULL)
-    {
+        cout << target->data << " ";
         return;
     }
 
-    if (k == 0)
-    {
-        cout << root->data << " ";
-        return;
-    }
-    printAtLevelK(root->left, k - 1);
-    printAtLevelK(root->right, k - 1);
+    nodesK_LevelsBelow(target->left, K - 1);
+    nodesK_LevelsBelow(target->right, K - 1);
     return;
 }
 
-int distance_K_from_target(node *root, node *target, int K)
+int printNodesAtDistanceK(node *root, node *target, int k)
 {
     // base case
     if (root == NULL)
     {
         return -1;
     }
-
-    // reach the target node look at all descendants of target.
+    // react the target node
     if (root == target)
     {
-        printAtLevelK(target, K);
+        nodesK_LevelsBelow(target, k);
         return 0;
     }
-
-    // other
-    //  search in nondescendants of target K. in left subtree
-    int DL = distance_K_from_target(root->left, target, K);
+    // other case
+    int DL = printNodesAtDistanceK(root->left, target, k - 1);
     if (DL != -1)
     {
-        // 2 CASES   //Print the current node
-        if (DL + 1 == K)
+        // 2 cases
+        // print the current node
+        if (1 + DL == k)
         {
-            cout << root->data;
+            cout << root->data << " ";
         }
+        // or print somenodes in the rightsubtree
         else
         {
-            printAtLevelK(root->right, K - 2 - DL);
+            nodesK_LevelsBelow(root->right, k - DL - 2);
         }
         return 1 + DL;
     }
-    int DR = distance_K_from_target(root->right, target, K);
+
+    int DR = printNodesAtDistanceK(root->right, target, k - 1);
     if (DR != -1)
     {
-        if (DR + 1 == K)
+        if (1 + DR == k)
         {
-            cout << root->right;
+            cout << root->data << " ";
         }
         else
         {
-            printAtLevelK(root->left, K - 2 - DR);
+            nodesK_LevelsBelow(root->left, k - DR - 2);
         }
         return 1 + DR;
     }
@@ -113,6 +93,6 @@ int main()
     node *target = root->left->right;
 
     int k = 2;
-    cout << distance_K_from_target(root, target, k);
+    cout << printNodesAtDistanceK(root, target, k);
     return 0;
 }

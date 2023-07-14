@@ -3,7 +3,6 @@ using namespace std;
 // longest unique substring
 string uniqueSubstring(string input)
 {
-    
 }
 
 int main()

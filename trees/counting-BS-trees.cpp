@@ -3,26 +3,9 @@ using namespace std;
 
 int countingTrees(int nodes)
 {
-    int ans = 0;
-    if (nodes == 1 or nodes == 0)
-        return 1;
-
-    for (int i = 1; i <= nodes; i++)
-    {
-        ans += countingTrees(i - 1) * countingTrees(nodes - i);
-    }
-    return ans;
 }
 int countTreesDP(int nodes)
 {
-    vector<int> dp(nodes + 1, 0);
-    dp[0] = dp[1] = 1;
-    for (int i = 2; i <= nodes; i++)
-        for (int j = 1; j <= i; j++)
-        {
-            dp[i] = dp[j - 1] + dp[i - j];
-        }
-    return dp[nodes];
 }
 int main()
 {

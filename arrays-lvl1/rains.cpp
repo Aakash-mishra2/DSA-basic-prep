@@ -3,6 +3,7 @@ using namespace std;
 
 int rains(vector<int> arr)
 {
+    
 }
 
 int main()

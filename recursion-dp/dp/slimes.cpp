@@ -5,24 +5,6 @@ int sum[400][400];
 int dp[400][400];
 int min_costSlimes(vector<int> slimes, int l, int r)
 {
-
-    int N = slimes.size();
-    if (l == r)
-    {
-        return slimes[l];
-    }
-
-    if (dp[l][r] != -1)
-    {
-        return dp[l][r];
-    }
-    int mincost = INT_MAX;
-    for (int k = l; k <= r; k++)
-    {
-        mincost = min(mincost, (min_costSlimes(slimes, l, k) + min_costSlimes(slimes, k + 1, r) + sum[l][r]));
-    }
-
-    return dp[l][r] = mincost;
 }
 
 int main()

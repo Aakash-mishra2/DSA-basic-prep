@@ -18,6 +18,13 @@ int main()
     int S = 4;
 
     auto s = triplets(arr, S);
-
+    for (auto i : s)
+    {
+        for (auto j : i)
+        {
+            cout << j << " ";
+        }
+        cout << endl;
+    }
     return 0;
 }

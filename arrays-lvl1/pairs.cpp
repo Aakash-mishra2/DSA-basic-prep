@@ -2,6 +2,20 @@
 using namespace std;
 pair<int, int> pairs_(vector<int> arr, int target)
 {
+    unordered_set<int> S;
+    for (int i = 0; i < arr.size(); i++)
+    {
+        int diff = target - arr[i];
+        if (S.find(diff) == S.end())
+        {
+            return make_pair(arr[i], diff);
+        }
+        else
+        {
+            S.insert(arr[i]);
+        }
+        return {-1, -1};
+    }
 }
 int main()
 {

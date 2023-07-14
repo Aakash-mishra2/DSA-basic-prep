@@ -2,79 +2,14 @@
 using namespace std;
 class node
 {
-public:
-    int data;
-    node *left;
-    node *right;
-
-public:
-    node(int d)
-    {
-        data = d;
-        left = NULL;
-        right = NULL;
-    }
 };
 
 void nodesK_LevelsBelow(node *target, int K)
 {
-
-    if (K == 0)
-    {
-        cout << target->data << " ";
-        return;
-    }
-
-    nodesK_LevelsBelow(target->left, K - 1);
-    nodesK_LevelsBelow(target->right, K - 1);
-    return;
 }
 
 int printNodesAtDistanceK(node *root, node *target, int k)
 {
-    // base case
-    if (root == NULL)
-    {
-        return -1;
-    }
-    // react the target node
-    if (root == target)
-    {
-        nodesK_LevelsBelow(target, k);
-        return 0;
-    }
-    // other case
-    int DL = printNodesAtDistanceK(root->left, target, k - 1);
-    if (DL != -1)
-    {
-        // 2 cases
-        // print the current node
-        if (1 + DL == k)
-        {
-            cout << root->data << " ";
-        }
-        // or print somenodes in the rightsubtree
-        else
-        {
-            nodesK_LevelsBelow(root->right, k - DL - 2);
-        }
-        return 1 + DL;
-    }
-
-    int DR = printNodesAtDistanceK(root->right, target, k - 1);
-    if (DR != -1)
-    {
-        if (1 + DR == k)
-        {
-            cout << root->data << " ";
-        }
-        else
-        {
-            nodesK_LevelsBelow(root->left, k - DR - 2);
-        }
-        return 1 + DR;
-    }
-    return -1;
 }
 
 int main()

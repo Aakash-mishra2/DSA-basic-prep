@@ -4,6 +4,19 @@ using namespace std;
 
 int knapsack(vector<int> weights, vector<int> prices, int N, int W)
 {
+    vector<vector<int>> DP(N + 1, vector<int>(W + 1, 0));
+
+    for (int n = 1; n <= N; n++)
+    {
+        for (int w = 1; w <= W; w++)
+        {
+            if (weights[n - 1] <= w)
+            {
+                DP[n][w] = max((DP[n - 1][w]), (DP[n - 1][w - weights[n - 1]] + prices[n - 1]));
+            }
+        }
+    }
+    return DP[N][W];
 }
 
 int main()

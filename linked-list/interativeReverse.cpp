@@ -36,14 +36,13 @@ void printLinkedList(Node<T> *root)
 template <typename T>
 void reverseList(Node<T> *&head)
 {
-    Node<T> *temp;
+    Node<T> *prev = nullptr;
     Node<T> *current = head;
-    Node<T> *prev = NULL;
-
-    while (current->next != NULL)
+    Node<T> *temp;
+    while (current != NULL)
     {
-        temp = current->next; // store next
-        current->next = prev; // update the current
+        temp = current->next;
+        current->next = prev;
         prev = current;
         current = temp;
     }

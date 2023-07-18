@@ -3,14 +3,22 @@ using namespace std;
 
 int max_non_adjacent_sum(vector<int> input)
 {
-    vector<int> DP(input.size(), 0);
-    DP[0] = input[0];
-    DP[1] = max(input[0], input[1]);
+    vector<int> dp(input.size(), 0);
+    dp[0] = input[0];
+    dp[1] = max(input[0], input[1]);
     for (int i = 2; i < input.size(); i++)
     {
-        DP[i] = max(DP[i - 1], DP[i - 2] + input[i]);
+        dp[i] = max(dp[i - 1], dp[i - 2] + input[i]);
     }
-    return DP[input.size() - 1];
+    int max = 0;
+    for (auto a : dp)
+    {
+        if (a > max)
+        {
+            max = a;
+        }
+    }
+    return max;
 }
 
 int main()

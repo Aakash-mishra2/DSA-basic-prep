@@ -3,22 +3,24 @@ using namespace std;
 
 pair<int, string> longest_common_subsequence(string x, string y)
 {
-    vector<vector<int>> DP(x.length() + 1, vector<int>(y.length() + 1, 0));
-    string ans;
+    vector<vector<int> > dp(x.length() + 1, vector<int>(y.length() + 1, 0));
+    string ans = "";
     for (int i = 1; i < x.length(); i++)
     {
         for (int j = 1; j < y.length(); j++)
         {
             if (x[i - 1] == y[j - 1])
             {
-                DP[i][j] = DP[i - 1][j - 1] + 1;
+                dp[i][j] = 1 + dp[i - 1][j - 1];
                 ans += x[i - 1];
             }
             else
-                DP[i][j] = max(DP[i - 1][j], DP[i][j - 1]);
+            {
+                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+            }
         }
     }
-    return make_pair(DP[x.length() - 1][y.length() - 1], ans);
+    return make_pair(dp[x.length()][y.length()], ans);
 }
 
 int main()

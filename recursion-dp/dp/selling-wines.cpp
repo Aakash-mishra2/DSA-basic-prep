@@ -24,22 +24,26 @@ int selling_wines_TD(vector<int> wines, int l, int r, int dp[][10], int y)
 
 int selling_winesBU_DP(vector<int> wines, int N)
 {
-    vector<vector<int> > dp(N + 1, vector<int>(N + 1, 0));
-    for (int i = N - 1; i >= 0; i--)
+    vector<vector<int>> dp(N + 1, vector<int>(N + 1, 0));
+    for (int l = N - 1; l >= 0; l--)
     {
-        for (int j = 0; j < N; j++)
+        for (int r = 0; r < N; r++)
         {
-            if (i <= j)
+            // right upper triangle
+            int year = N - (r - l);
+            if (l == r)
             {
-                int y = N - (j - i);
-                int pick_left = wines[i] * y + dp[i + 1][j];
-                int pick_right = wines[j] * y + dp[i][j - 1];
-
-                dp[i][j] = max(pick_left, pick_right);
-                cout << dp[i][j] << ",";
+                dp[l][r] = wines[l] * year;
             }
-            cout << endl;
+            if (l < r)
+            {
+                int pick_left = wines[l] * year + dp[l + 1][r];
+                int pick_right = wines[r] * year + dp[l][r - 1];
+                dp[l][r] = max(pick_left, pick_right);
+                cout << dp[l][r] << ",";
+            }
         }
+        cout << endl;
     }
     return dp[0][N - 1];
 }

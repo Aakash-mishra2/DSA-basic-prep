@@ -26,16 +26,17 @@ int subsequence_count(string x, string y, int i, int j)
 }
 int subsequence_countBU(string s1, string s2)
 {
-    // upto i letters in s1 and upto j letters in s2, what is the number of times s1 is a part of s2.
-    vector<vector<int> > dp(s1.length() + 1, vector<int>(s2.length() + 1, 0));
-    for (int i = 0; i <= s1.length(); i++)
+    // m+1 X n+1 because traversal on strings of size m and n plus one row for null string matching cases.
+    //  upto i letters in s1 and upto j letters in s2, what is the number of times s2 is a part of s1.
+    int m = s1.length(), n = s2.length();
+    vector<vector<int>> dp(m + 1, vector<int>(n + 1, 0));
+    for (int i = 0; i <= m; i++)
     {
         dp[i][0] = 1;
     }
-
-    for (int i = 1; i <= s1.length(); i++)
+    for (int i = 1; i <= m; i++)
     {
-        for (int j = 1; j <= s2.length(); j++)
+        for (int j = 1; j <= n; j++)
         {
             if (s1[i - 1] == s2[j - 1])
             {
@@ -47,13 +48,13 @@ int subsequence_countBU(string s1, string s2)
             }
         }
     }
-    return dp[s1.length()][s2.length()];
+    return dp[m][n];
 }
 
 int main()
 {
     string s1 = "ABBCECDGCC", s2 = "ABC";
     // cin >> s1 >> s2;
-    cout << subsequence_count(s1, s2, s1.length() - 1, s2.length() - 1) << endl;
+    // cout << subsequence_count(s1, s2, s1.length() - 1, s2.length() - 1) << endl;
     cout << subsequence_countBU(s1, s2) << endl;
 }

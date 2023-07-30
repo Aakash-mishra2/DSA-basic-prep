@@ -3,26 +3,22 @@ using namespace std;
 
 int min_Swaps(vector<int>arr){
 	int ans = 0;
-	vector<pair<int, int>> vec = {};
+	vector<pair<int, int>> vec;
 	for(int i = 0; i<arr.size(); i++){
 		vec.push_back(make_pair(arr[i], i));
 	}
-	for( auto i: vec){cout<<i.first<<" "<<i.second<<endl; }
-	sort(arr.begin(), arr.end());
+	sort(vec.begin(), vec.end());
 	vector<bool> visited(arr.size(), false);
 	for(int i = 0; i<arr.size(); i++){
-		cout<<vec[i].first<<" "<<vec[i].second<<endl;
 		if(visited[i]==true or vec[i].second==i){
-			cout<<i<<endl;	continue;
+			continue;
 		}
 		int currentIndex = i, thisCycle = 0;//cycle nodes count
 		while(!visited[currentIndex]){
-			cout<<arr[currentIndex]<<endl;
 			visited[currentIndex] = true;
 			currentIndex = vec[currentIndex].second;
 			thisCycle++;
 		}
-		cout<<thisCycle;
 		ans += thisCycle-1;
 	}
 	return ans;

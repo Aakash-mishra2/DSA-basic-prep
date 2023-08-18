@@ -80,9 +80,11 @@ void bfs(Graph g)
         {
             string current_node = q.front();
             cout << current_node << " ";
+            g.visited[current_node] = true;
             for (auto next_nodes : g.m[current_node]->nbrs)
             {
-                q.push(next_nodes);
+                if (g.visited[next_nodes] == false)
+                    q.push(next_nodes);
             }
             q.pop();
         }
@@ -118,6 +120,7 @@ int main()
     g.addEdge("Delhi", "London");
     cout << "PRINT GRAPH" << endl;
     g.printAdjList();
+    g.unvisitAll();
     cout << "BREADTH-FIRST-SEARCH" << endl;
     bfs(g);
     g.unvisitAll();

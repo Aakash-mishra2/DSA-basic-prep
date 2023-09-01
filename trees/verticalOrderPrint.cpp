@@ -29,33 +29,36 @@ public:
 
 void treeTraverse(node *tree, int d, map<int, vector<int>> &m)
 {
-
-    if (tree == NULL)
+    if (tree == nullptr)
     {
         return;
     }
     m[d].push_back(tree->data);
     treeTraverse(tree->left, d - 1, m);
     treeTraverse(tree->right, d + 1, m);
+    return;
 }
+
 void verticalOrderPrint(node *root)
 {
-    map<int, vector<int>> m;
-    int d = 0;
-
-    treeTraverse(root, d, m);
-
-    for (auto p : m)
+    if (root == nullptr)
     {
-        int key = p.first;
-        vector<int> line = p.second;
-        for (auto data : line)
+        return;
+    }
+    int d = 0;
+    map<int, vector<int>> m;
+    treeTraverse(root, d, m);
+    for (auto vec : m)
+    {
+        int key = vec.first;
+        cout << key << " : ";
+        vector<int> line = vec.second;
+        for (auto ele : line)
         {
-            cout << data << " ";
+            cout << ele << " ";
         }
         cout << endl;
     }
-    return;
 }
 
 int main()

@@ -42,17 +42,17 @@ void levelOrderPrint(node *root)
     }
     queue<node *> q;
     q.push(root);
-    q.push(NULL);
+    q.push(nullptr);
     while (!q.empty())
     {
         node *temp = q.front();
-        if (temp == NULL)
+        if (temp == nullptr)
         {
             cout << endl;
             q.pop();
             if (!q.empty())
             {
-                q.push(NULL);
+                q.push(nullptr);
             }
         }
         else
@@ -79,10 +79,10 @@ int replaceWithSum(node *root)
         return root->data;
     }
     int temp = root->data;
-    int SL = replaceWithSum(root->left);
-    int SR = replaceWithSum(root->right);
-    root->data = SL + SR;
-    return temp + root->data;
+    int left = replaceWithSum(root->left);
+    int right = replaceWithSum(root->right);
+    root->data = left + right;
+    return (temp + root->data);
 }
 int main()
 {

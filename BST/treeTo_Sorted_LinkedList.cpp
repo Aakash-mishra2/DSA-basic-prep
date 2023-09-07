@@ -50,21 +50,6 @@ void printBST(Node *root)
     cout << root->val << " ";
     printBST(root->right);
 }
-// Node *treeToLL(Node *root)
-// {
-//     if (root->left == nullptr and root->right == nullptr)
-//     {
-//         root->head = root;
-//         root->tail = root;
-//         return root;
-//     }
-//     Node *Lchild = treeToLL(root->left);
-//     Lchild->tail = root;
-//     Node *Rchile = treeToLL(root->right);
-//     root->tail = Rchile->head;
-//     return Lchild->head;
-// }
-// PK SIR
 class LinkedList
 {
 public:
@@ -73,42 +58,35 @@ public:
 };
 LinkedList tree2LL(Node *root)
 {
-    LinkedList l;
-    if (root == nullptr)
-    {
-        l.head = l.tail = nullptr;
-        return l;
-    }
-    // 4 cases;
-    if (root->left and root->right)
-    {
-        LinkedList rightL = tree2LL(root->right);
-        LinkedList leftL = tree2LL(root->left);
-        root->right = rightL.head;
-        leftL.tail->right = root;
-        l.head = leftL.head;
-        l.tail = rightL.tail;
-    }
-    else if (root->left == nullptr and root->right == nullptr)
-    {
-        l.head = root;
+   LinkedList l;
+   if(root == nullptr){
+    l.head = l.tail = nullptr;
+   }
+   else if(root->left and root->right){
+    LinkedList leftl = tree2LL(root->left);
+    LinkedList rightl = tree2LL(root->right);
+    l.head = leftl.head;
+    l.tail = rightl.tail;
+    root->right = rightl.head;
+    leftl.tail->right = root;
+   }
+   else if(root->left== nullptr and root->right==nullptr){
+    l.head = root;
+    l.tail = root;
+   }
+   else if(root->left==nullptr and root->right!=nullptr){
+    l.head = root;
+    LinkedList rightl = tree2LL(root->right);
+    l.tail = rightl.tail;
+    root->right = rightl.head;
+   }
+   else{
         l.tail = root;
-    }
-    else if (root->left == nullptr and root->right != nullptr)
-    {
-        LinkedList rightL = tree2LL(root->right);
-        root->right = rightL.head;
-        l.head = root;
-        l.tail = rightL.tail;
-    }
-    else
-    {
-        LinkedList leftL = tree2LL(root->left);
-        leftL.tail->right = root;
-        l.head = leftL.head;
-        l.tail = root;
-    }
-    return l;
+        LinkedList leftl = tree2LL(root->left);
+        l.head = leftl.head;
+        leftl.tail->right = root;
+   }
+   return l;
 }
 int main()
 {

@@ -13,33 +13,22 @@ void file_io()
 }
 bool isParenthesisRedundant(string str)
 {
-    // Complete
-    stack<char> S;
-    for (auto ch : str)
-    {
-        if (ch != ')')
-        {
-            S.push(ch);
-        }
-        else
-        {
+    stack<char> s;
+    for(auto ch : str){
+        if( ch != ')'){ s.push(ch); }
+
+        else {
             bool optr = false;
-            while (!S.empty() and S.top() != '(')
-            {
-                char temp = S.top();
-                S.pop();
-                if (temp == '+' or temp == '-' or temp == '*' or temp == '/')
-                {
-                    optr = true;
-                }
-                S.pop();
+            while(!s.empty() and s.top()!='('){
+            char temp = s.top();
+            if(temp == '+' or temp =='-' or temp == '*' or temp=='/'){
+                optr = true;    
             }
-            S.pop(); // pop the first opening bracket after loop is over
-            if (optr == false)
-            {
-                return true;
-            }
+            s.pop();
+            if(optr == false) return true;
         }
+        s.pop(); //remove the last '('
+        } 
     }
     return false;
 }

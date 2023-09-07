@@ -24,19 +24,11 @@ public:
 };
 Node *addNode(Node *root, int newVal)
 {
-    if (root == nullptr)
-    {
-        return new Node(newVal);
+    if(root==nullptr){ return new Node(newVal); }
+    if(newVal > root->val){
+        root->right= addNode(root->right, newVal);
     }
-    else if (root->val < newVal)
-    {
-        root->right = addNode(root->right, newVal);
-    }
-    else
-    {
-        root->left = addNode(root->left, newVal);
-    }
-    return root;
+    else { root->left = addNode(root->left, newVal); }
 }
 void printBST(Node *root)
 {

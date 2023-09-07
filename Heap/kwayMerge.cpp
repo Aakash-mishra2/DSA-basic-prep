@@ -12,35 +12,25 @@ void file_io()
 }
 vector<int> mergeKsorted(vector<vector<int>> &arr)
 {
-    int k = arr.size();
-    priority_queue<vector<int>, vector<vector<int>>, greater<vector<int>>> q;
+    vector<int> answer;
+   priority_queue<vector<int>, vector<vector<int>>, greater<vector<int>> > s;
+   int k = arr.size();
+   for(int k = 0; k<arr.size(); k++){
+        s.push({arr[k][0], 0, k});
+   }
+    while(!s.empty()){
+        auto temp = s.top();
+        s.pop();
+        int elem = temp.at(0);
+        int ind = temp.at(1);
+        int arr_ind = temp.at(2);
 
-    // triplet-> element, index, array_index
+        if(ind == arr[arr_ind].size()){ continue; }
 
-    vector<int> output;
-    // initialize heap
-    for (int i = 0; i < k; i++)
-    {
-        int element = arr[i][0];
-        q.push({element, 0, i});
+        answer.push_back(elem);
+        s.push({arr[arr_ind][ind+1], ind+1, arr_ind});
     }
-
-    // start popping
-    while (!q.empty())
-    {
-        auto top = q.top();
-        q.pop();
-        int element = top.at(0);
-        int element_index = top.at(1);
-        int array_index = top.at(2);
-        output.push_back(element);
-        if (element_index + 1 < arr[array_index].size())
-        {
-            int next_element = arr[array_index][element_index + 1];
-            q.push({next_element, element_index + 1, array_index});
-        }
-    }
-    return output;
+    return answer;
 }
 
 int main()

@@ -13,66 +13,51 @@ void file_io()
 int main()
 {
     file_io();
-    int arr[] = {};
-
-    priority_queue<int> leftHeap;                             // maxHeap
-    priority_queue<int, vector<int>, greater<int>> rightHeap; // minHeap
+    priority_queue< int, vector<int>, greater<int>> rightHeap;
+    priority_queue<int> leftHeap;
 
     int d;
-    cin >> d;
+    cin>>d;
     leftHeap.push(d);
 
     float med = d;
-    cout << med << " ";
+    cout<<med <<" ";
 
-    cin >> d;
-    while (d != -1)
-    {
-        if (leftHeap.size() > rightHeap.size())
-        {
-            // insertion and rebalancing
-            if (d < med)
-            {
-                rightHeap.push(leftHeap.top());
-                leftHeap.pop();
-                leftHeap.push(d);
+    cin>>d;
+    while( d!= -1){
+        if(leftHeap.size() == rightHeap.size()){
+          if( d < med){
+            leftHeap.push(d);
+            med = leftHeap.top();
+          }
+          else{
+            rightHeap.push(d);
+            med = rightHeap.top();
+          }
+        }
+        else if(leftHeap.size() > rightHeap.size()){
+            if(d<med){
+            rightHeap.push(leftHeap.top());
+            leftHeap.pop();
+            leftHeap.push(d);
             }
-            else
-            {
+            else{ 
                 rightHeap.push(d);
             }
-            med = (leftHeap.top() + rightHeap.top()) / 2;
+            med = static_cast<float>(leftHeap.top() + rightHeap.top())/2;
         }
-        else if (leftHeap.size() == rightHeap.size())
-        {
-            if (d < med)
-            {
-                leftHeap.push(d);
-                med = leftHeap.top();
-            }
-            else
-            {
-                rightHeap.push(d);
-                med = rightHeap.top();
-            }
-        }
-        else
-        {
-            if (d < med)
-            {
+        else{
+            if( d<med){ 
                 leftHeap.push(d);
             }
-            else
-            {
+            else{
                 leftHeap.push(rightHeap.top());
                 rightHeap.pop();
                 rightHeap.push(d);
             }
-            med = (leftHeap.top() + rightHeap.top()) / 2;
+            med = static_cast<float>(leftHeap.top() + rightHeap.top())/2;
         }
-        cout << med << " ";
-        cin >> d;
+        cout<<med<<" ";
+        cin>>d;
     }
-
-    return 0;
 }

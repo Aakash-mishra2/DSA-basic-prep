@@ -1,52 +1,51 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
-// cycle detection using bfs code in udemy assignment
-class Graph
-{
+class Graph{
+    list<int>* l;
     int V;
-    list<int> *l;
+    
+    public:
     vector<bool> visited;
-
-public:
-    Graph(int v)
-    {
-        this->V = v;
-        l = new list<int>[V];
-        visited.assign(V, false);
-    }
-    void addEdge(int x, int y)
-    {
-        l[x].push_back(y);
-        l[y].push_back(x);
-    }
-    bool dfs(int node, int parent)
-    {
-        visited[node] = true;
-        for (auto nbr : l[node])
-        {
-            if (!visited[nbr])
-            {
-                bool nbrFoundCycle = dfs(nbr, node);
-                if (nbrFoundCycle)
-                    return true;
-            }
-            else if (nbr != parent)
-                return true;
+        Graph(int v){
+            V = v;
+            l = new list<int>[V];
+            visited.assign(V, false);
         }
-        return false;
-    }
-    bool containsCycle()
-    {
-        return dfs(0, -1);
-    }
+        void addEdge(int x, int y, bool undir = true){
+            l[x].push_back(y);
+            if(undir){
+                l[y].push_back(x);
+            }
+        }
+        bool dfs(int node, int parent){
+            visited[node]=true;
+            cout<<node<<endl;
+            for( int nbrs : l[node]){
+                if(!visited[nbrs]){
+                    bool nbrs_cycle = dfs(nbrs, node);
+                    if(nbrs_cycle == true) {
+                        return true;
+                    }
+                }
+                else if(nbrs != parent){
+                    return true;
+                }
+            }
+            return false;
+        }
 };
-
-bool contains_cycle(int V, vector<pair<int, int>> edges)
-{
-    Graph g(V);
-    for (auto edge : edges)
-    {
-        g.addEdge(edge.first, edge.second);
+bool contains_cycle(int B,vector<pair<int,int> > edges){
+    Graph g(B);
+    for(auto i: edges){
+        g.addEdge(i.first, i.second);
     }
-    return g.containsCycle();
-}
+        for(int i = 0; i<B; i++){
+            if(!g.visited[i]){
+                if(g.dfs(i, -1) == true){
+                    return true;
+                }
+            }
+        }
+    return false;
+}    
+    

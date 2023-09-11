@@ -1,5 +1,16 @@
 #include <bits/stdc++.h>
 using namespace std;
+/*
+8
+0 0
+0 1
+1 1
+1 0
+2 1
+2 0
+3 1
+3 0
+*/
 void file_io()
 {
     ios_base::sync_with_stdio;

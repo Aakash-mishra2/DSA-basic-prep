@@ -1,30 +1,34 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+void file_io(){
+    ios_base::sync_with_stdio;
+    cout.tie(0); cin.tie(0);
+    #ifndef ONLINE_JUDGE
+        freopen("input.txt", "r", stdin);
+        freopen("output.txt", "w", stdout);
+    #endif
+}
 
-vector<char> FindFirstNonRepeatingCharacter(string S){
-    vector<char> nonRep;
-    cout<<S<<endl;
-    unordered_map<char, int> M;
+int main(){
+    file_io();
+    string s;
+    cin>>s;
     queue<char> q;
-    for( auto ch : S){
-        M[ch]++;
-        if(M[ch]==1){
-        q.push(ch);
-        }
+    unordered_map<char, int> m;
+    for( int i = 0; i<s.length(); i++){
+        m[s[i]]++;
+        if(m[s[i]] == 1){ q.push(s[i]); }
         while(!q.empty()){
-            if(M[q.front()] > 1){
-                q.pop();
-            }
-            else{
-                nonRep.push_back(q.front());
+            if(m[q.front()] == 1){
+                cout<<q.front()<<" ";
                 break;
             }
+            else{
+                q.pop();
+            }
         }
-        if(q.empty()){
-            nonRep.push_back('0');
-        }
+        if(q.empty()) cout<<'-1'<<" ";
     }
-    
-    return nonRep;
+    return 0;
 }

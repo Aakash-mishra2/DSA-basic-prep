@@ -1,16 +1,5 @@
 #include <bits/stdc++.h>
 using namespace std;
-/*
-8
-0 0
-0 1
-1 1
-1 0
-2 1
-2 0
-3 1
-3 0
-*/
 void file_io()
 {
     ios_base::sync_with_stdio;
@@ -28,47 +17,52 @@ public:
 
     Point(int x, int y) : x(x), y(y) {}
 };
+//custom comparator for Points set
+/*
+8
+0 0
+0 1
+1 1
+1 0
+2 1
+2 0
+3 1
+3 0
+*/
 class Compare
 {
 public:
-    bool operator()(const Point p1, const Point p2)
-    {
-        if (p1.x == p2.x)
-        {
-            return p1.y < p2.y;
-        }
-        return p1.x < p2.x;
+    bool operator()(const Point p1, const Point p2){
+            if(p1.x == p2.x){
+                return p1.y < p2.y;
+            }
+            else return p1.x < p2.x;
     }
 };
 
 int countingRectangles(vector<Point> points)
 {
+    set<Point, Compare> s;
     int ans = 0;
-    set<Point, Compare> set;
-    for (int i = 0; i < points.size(); i++)
-    {
-        set.insert(points[i]);
+    for(int i=0; i<points.size(); i++){
+        s.insert(points[i]);
     }
-
-    // 2. brute force logic for two points
-    for (auto it = set.begin(); it != prev(set.end()); it++){
-        for( auto jt = next(it); jt != set.end(); jt++){
+    //brute force p2, p1;
+    for( auto it = s.begin(); it != prev(s.end()); it++){
+        for( auto jt = next(it); jt != s.end(); jt++){
             Point p1 = *it;
             Point p2 = *jt;
-            //small check to make sure p1 and p2 are diagonally opposite
+            // make sure diagonally opp
             if( p1.x == p2.x or p1.y == p2.y) continue;
-
             Point p3(p1.x, p2.y);
             Point p4(p2.x, p1.y);
+            // lookup p3, p4
+            if((s.find(p3) != s.end())  and (s.find(p4)!=s.end()))
+                ans++;
 
-            //look up
-            if(set.find(p3)!=set.end() and set.find(p4)!=set.end()){ 
-                ans += 1;
-            }
         }
     }
-    // why? lec176
-    return ans/2;
+        return ans/2;
 }
 
 int main()

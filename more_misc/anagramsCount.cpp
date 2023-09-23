@@ -18,35 +18,26 @@ void file_io()
 }
 
 vector<int> getHashValue( string s, int i, int j){
-    vector<int> freq(26, 0);
-    //iterate over original string from i to j to fill this vector
-    for(int k = i; k<=j; k++){
-        freq[s[k] - 'a']++;
+    vector<int> vec(26, 0);
+    for(int k = i; k<= j; k++){
+        vec[s[k]-'a'] += 1;
     }
-    return freq;
+    return vec;
 }
 
 int countingAnagrams(string str){
-    map<vector<int>, int> M;
-    for( int i = 0; i<str.length(); i++){
-        for( int j = i; j<str.length(); j++){
-            //Substring [i...j]
-            auto hash = getHashValue(str, i, j);
-            //put it inside map
-            M[hash]++;
+    map<vector<int>, int> map;
+    for(int i = 0; i<str.length(); i++){
+        for(int j = i; j<str.length(); j++){
+            auto thisHash = getHashValue(str,i,j);
+            map[thisHash]++;
         }
     }
-
-    //pairs
-    int ans = 0;
-    for( auto p : M){
-        int freq = p.second;
-        if(freq >= 2){
-            // C(freq,2) pairs possible 
-            ans += (freq) * (freq-1)/2;
-        }
+    int answer = 0;
+    for(auto p : map){
+        if(p.second > 1){ answer += (p.second)*(p.second - 1)/2; }
     }
-    return ans;
+    return answer;
 }
 
 int main(){

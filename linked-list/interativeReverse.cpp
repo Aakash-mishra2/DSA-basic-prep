@@ -1,57 +1,66 @@
 #include <iostream>
 using namespace std;
+void file_io(){
+    ios_base::sync_with_stdio;
+    cout.tie(0); cin.tie(0);
+    #ifndef ONLINE_JUDGE
+        freopen("../MORE_miscc/input.txt", "r", stdin);
+        freopen("../MORE_miscc/output.txt", "w", stdout);
+    #endif
+    }
 template <typename T>
 class Node
 {
 public:
-    int data;
+    T data;
     Node *next;
-    Node(T val)
-    {
-        this->data = val;
-        this->next = NULL;
-    }
+    Node(T val) : data(val), next(nullptr) {}
 };
-
 template <typename T>
-void insertAtBeginning(Node<T> *&head, T newVal)
+void insertAtBeginning(Node<T> *&root, int newVal)
 {
-    Node<T> *temp = new Node<T>(newVal);
-    temp->next = head;
-    head = temp;
-}
-template <typename T>
-void printLinkedList(Node<T> *root)
-{
-    cout << "Current Node \t Data \t Next Node " << endl;
-    while (root->next != NULL)
+    Node<T> *head = new Node<T>(newVal);
+    if (root == nullptr)
     {
-        cout << root << "\t " << root->data << "\t " << root->next << " " << endl;
-        root = root->next;
+        root = head;
     }
-    cout << root << "\t" << root->data << "\t "
-         << "NULL" << endl;
-}
-
-template <typename T>
-void reverseList(Node<T> *&head)
-{
-    Node<T> *prev = nullptr;
-    Node<T> *current = head;
-    Node<T> *temp;
-    while (current != NULL)
+    else
     {
+        head->next = root;
+        root = head;
+    }
+}
+template <typename t>
+void printLinkedList(Node<t> *root)
+{
+    Node<t> *head = root;
+    cout << "Current \t Data \t NextNode" << endl;
+    while (head->next != nullptr)
+    {
+        cout << head << "\t" << head->data << "\t" << head->next << endl;
+        head = head->next;
+    }
+    cout << head << "\t" << head->data << "\t" << head->next << endl;
+}
+//in C++ *binds to the declarator not the type specifier. 
+//declarations are based on type of expressions not objects;
+template <typename T>
+void reverseList(Node<T> *&root)
+{
+    if(root == nullptr){ return; }
+    Node<T> *temp = nullptr, *current = root, *prev = nullptr;
+    while(current!= nullptr){
         temp = current->next;
         current->next = prev;
         prev = current;
         current = temp;
     }
-    head = prev;
+    root = prev;
     return;
 }
-
 int main()
 {
+    file_io();
     Node<int> *root = new Node<int>(3);
     cout << "--NEW LINKED LIST-----" << endl;
     insertAtBeginning<int>(root, 78);

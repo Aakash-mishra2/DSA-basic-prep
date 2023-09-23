@@ -1,4 +1,4 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 void file_io()
 {
@@ -11,44 +11,43 @@ void file_io()
 #endif
 }
 
-int tripletsGP(vector<int>& arr, int n, int R){
-    unordered_map<int, int> left, right;
-    for( int i = 0; i<n; i++){
-        right[arr[i]]++;
-    }
+int tripletsGP(vector<int> &arr, int n, int R)
+{
     int answer = 0;
-    for( int i = 0; i<n; i++){
-        if( i ==0 or i== n-1){ 
-            left[arr[i]]++; right[arr[i]]--;
+    unordered_map<int, int> leftA, rightA;
+    for( auto x : arr){
+        rightA[x]++;
+    }
+    for(int i = 0; i<n; i++){
+
+        if(i == 0 or i == n-1){
+            rightA[arr[i]]--;
+            leftA[arr[i]]++;
             continue;
-            }
+        }
         else{
-            right[arr[i]]--;
-            int a1 = arr[i]/R;
-            int a2 = arr[i]*R;
-            
-            answer += (left[a1])*(right[a2]);
-            left[arr[i]]++;
+        rightA[arr[i]]--;
+        answer += (leftA[arr[i]/R] * rightA[arr[i]*R]);
+        leftA[arr[i]]++;
+
         }
     }
     return answer;
 }
-/*
-6
-1 16 4 16 64 16
-4
-*/
-int main(){
+
+int main()
+{
     file_io();
     int n;
-    cin>>n;
+    cin >> n;
     int commRatio;
     vector<int> arr(n);
-    for(int i = 0; i<n; i++){
-        cin>>arr[i];
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
     }
-    cin>>commRatio;
-    cout<<"no. of GP triplets are : "<<tripletsGP(arr, n, commRatio);
+    cin >> commRatio;
+    cout << "no. of GP triplets are : " << tripletsGP(arr, n, commRatio);
 
     return 0;
 }

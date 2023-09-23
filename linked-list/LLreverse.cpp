@@ -1,5 +1,13 @@
 #include <iostream>
 using namespace std;
+void file_io(){
+    ios_base::sync_with_stdio;
+    cout.tie(0); cin.tie(0);
+    #ifndef ONLINE_JUDGE
+        freopen("../MORE_miscc/input.txt", "r", stdin);
+        freopen("../MORE_miscc/output.txt", "w", stdout);
+    #endif
+    }
 template <typename T>
 class Node
 {
@@ -37,18 +45,18 @@ void printLinkedList(Node<T> *root)
 template <typename T>
 Node<T> *reverseList(Node<T> *head)
 {
-    if (head == NULL or head->next == NULL)
-    {
+    if(head->next == nullptr ){
         return head;
     }
-    Node<T> *sHead = reverseList<T>(head->next);
+    Node<T>* newHead = reverseList(head->next);
     head->next->next = head;
-    head->next = NULL;
-    return sHead;
+    head->next = nullptr;
+    return newHead;
 }
 
 int main()
 {
+    file_io();
     Node<int> *root = new Node<int>(3);
     cout << "--NEW LINKED LIST-----" << endl;
     insertAtBeginning<int>(root, 78);

@@ -1,5 +1,14 @@
 #include <iostream>
+#include<bits/stdc++.h>
 using namespace std;
+void file_io(){
+    ios_base::sync_with_stdio;
+    cout.tie(0); cin.tie(0);
+    #ifndef ONLINE_JUDGE
+        freopen("../MORE_miscc/input.txt", "r", stdin);
+        freopen("../MORE_miscc/output.txt", "w", stdout);
+    #endif
+    }
 template <typename T>
 class Node
 {
@@ -17,49 +26,51 @@ public:
 template <typename T>
 void insertAtBeginning(Node<T> *&head, T newVal)
 {
-    Node<T> *temp = new Node<T>(newVal);
+    Node<T>* temp = new Node<T>(newVal);
+    if(head == nullptr){ head = temp; return;}
     temp->next = head;
     head = temp;
 }
 template <typename T>
 void printLinkedList(Node<T> *root)
 {
-    cout << "Current Node \t Data \t Next Node " << endl;
-    while (root->next != NULL)
-    {
-        cout << root << "\t " << root->data << "\t " << root->next << " " << endl;
+    if(root == nullptr){ return;}
+    while(root!= nullptr){
+        cout<<root<<"\t"<<root->data<<"\t"<<root->next<<endl;
         root = root->next;
     }
-    cout << root->data << " "
-         << "NULL" << endl;
 }
 
 template <typename T>
 void insertAtEnd(Node<T> *&root, T lastValue)
 {
-    Node<T> *temp = root;
-    while (temp->next != NULL)
-    {
-        temp = temp->next;
+    Node<T>* temp = new Node<T>(lastValue);
+    if( root == nullptr){ 
+        root = temp; 
+        return;
     }
-    Node<T> *lastNode = new Node<T>(lastValue);
-    temp->next = lastNode;
+    auto head = root;
+    while(head->next != nullptr){
+        head = head->next;
+    }
+    head->next = temp;
 }
 
 template <typename T>
 void insertAfter(Node<T> *&root, T midValue, T newValue)
 {
-    Node<T> *temp = root;
-    while ((temp->next != NULL) and (temp->data != midValue))
-    {
-        temp = temp->next;
-    }
-    Node<T> *midNode = new Node<T>(newValue);
-    midNode->next = temp->next;
-    temp->next = midNode;
+    if(root == nullptr){ return; }
+    Node<T>* temp = new Node<T>(newValue);
+    Node<T>* head = root;
+    while(head != nullptr and (head->data != midValue)){    head = head->next; }
+    if(head == nullptr){ cout<<" Entered midvalue doesnot exist"<<endl; return; }
+    temp -> next = head->next;
+    head->next = temp;
+
 }
 int main()
 {
+    file_io();
     Node<int> *root = new Node<int>(6);
     cout << root->data << " " << root->next << endl;
     root->next = new Node<int>(9);

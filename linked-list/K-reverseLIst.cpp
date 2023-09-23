@@ -1,5 +1,13 @@
 #include <iostream>
 using namespace std;
+void file_io(){
+    ios_base::sync_with_stdio;
+    cout.tie(0); cin.tie(0);
+    #ifndef ONLINE_JUDGE
+        freopen("../MORE_miscc/input.txt", "r", stdin);
+        freopen("../MORE_miscc/output.txt", "w", stdout);
+    #endif
+    }
 class node
 {
 public:
@@ -10,28 +18,20 @@ public:
 
 node *Kreverse(int K, node *root)
 {
-    if (root == nullptr)
-    {
-        return nullptr;
-    }
-    node *prev = nullptr;
-    node *current = root;
-    node *temp;
-    int cnt = 1;
-
-    while ((current != nullptr) and (cnt <= K))
-    {
-        temp = current->next;
-        current->next = prev;
-        prev = current;
-        current = temp;
-        cnt++;
-    }
-    if (current != nullptr)
-    {
-        root->next = Kreverse(K, current);
-    }
-    return prev;
+   node *temp = nullptr, *current = root, *prev = nullptr;
+   if(root == nullptr){ return nullptr;}
+   int count = 1;
+   while(current!=nullptr and count<=K){
+    temp = current->next;
+    current->next = prev;
+    prev = current;
+    current = temp;
+    count++;
+   }
+   if( current != nullptr){
+    root->next = Kreverse(K, current);
+   }
+   return prev;
 }
 
 void insertAtBeginning(node *&root, int val)
@@ -54,6 +54,7 @@ void printLinkedList(node *root)
 }
 int main()
 {
+    file_io();
     node *root = new node(1);
     cout << " ------- NEW LINKED LIST -----" << endl;
     insertAtBeginning(root, 2);

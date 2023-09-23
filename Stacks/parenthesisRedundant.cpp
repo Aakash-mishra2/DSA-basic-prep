@@ -15,7 +15,7 @@ bool isParenthesisRedundant(string str)
 {
     stack<char> s;
     for(auto ch : str){
-        if( ch != ')'){ s.push(ch); }
+        if( ch != ')'){ s.push(ch); continue; }
 
         else {
             bool optr = false;
@@ -25,8 +25,8 @@ bool isParenthesisRedundant(string str)
                 optr = true;    
             }
             s.pop();
-            if(optr == false) return true;
         }
+        if(optr == false) return true;
         s.pop(); //remove the last '('
         } 
     }

@@ -6,38 +6,37 @@
 using namespace std;
 
 int_least32_t canAssign(vector<int> books, int pages_limit){
-        int current_pages = 0, assigned = 1;
-        for( int i = 0; i<books.size(); i++){
-            if( current_pages + books[i] <= pages_limit ){
-                current_pages += books[i];
-            }
-            else{
-                assigned += 1;
-                current_pages = books[i];
-            }
-        }
-    return assigned;
+ int current_pages = 0, assigned = 0;
+ cout<<endl;
+ for( int i = 0; i<books.size(); i++){
+    if(current_pages + books[i] >= pages_limit){
+        assigned++;
+        current_pages = books[i];
+    }
+    else{ current_pages += books[i]; }
+ }
+ return assigned;
 }
 
 int readingBooks(vector<int> books, int students ){
-    int s = 0, e = 0, ans;
-    for(auto i : books){
-        if ( i > s){ s = i; }
-        e += i;
-    }
-
-    while( s<=e ){
-        int mid = s + (e - s)/2;
-        int st = canAssign(books, mid);
-        if( st <= students ){
-            ans = mid;
-            e = mid - 1;
-        }
-        else{
+sort(books.begin(), books.end());
+int max = INT_MIN, answer = 0;
+ int s, e = 0; for( auto i : books){
+    if(i>max){ max = i; }
+    e += i;  }
+    s = max;
+    while(s <= e){
+        int mid = s + (e-s)/2;
+        int temp = canAssign(books, mid);
+        if( temp >= students){
+            answer = mid;
             s = mid + 1;
         }
+        else{
+            e = mid - 1;
+        }
     }
-    return ans;
+    return answer;
 }
 
 int main(){

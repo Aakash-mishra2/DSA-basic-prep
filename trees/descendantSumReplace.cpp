@@ -68,6 +68,17 @@ void levelOrderPrint(node *root)
     return;
 }
 // Todo: Replace with descendant Sum leaving leaf nodes intact
+/*
+int replaceWithSum(node *root)
+{
+    int leftST = 0, temp = 0, rightST=0;
+    if(root->left) leftST = replaceWithSum(root->left);
+    if(root->right) rightST = replaceWithSum(root->right);
+    temp = root->data;
+    root->data = leftST + rightST;
+    return (temp + root->data);
+}
+*/
 int replaceWithSum(node *root)
 {
     if (root == nullptr)

@@ -14,7 +14,15 @@ int count_setbits(int n)
     }
     return count;
 }
-
+// int CountSetBits(int x){
+//     int ans = 0;
+//     while(x>0){
+//         //removes last set bit 10(1010) & 9(1001) = 1000(8) & 7(111) = 0000 
+//         x = x & (x-1);
+//         ans++;
+//     }
+//     return ans;
+// }
 int main()
 { // any number n can have at most log(n) bits.
     int n = 9;

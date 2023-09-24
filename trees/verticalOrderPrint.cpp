@@ -26,38 +26,21 @@ public:
         this->right = NULL;
     }
 };
-
-void treeTraverse(node *tree, int d, map<int, vector<int>> &m)
-{
-    if (tree == nullptr)
-    {
-        return;
-    }
-    m[d].push_back(tree->data);
-    treeTraverse(tree->left, d - 1, m);
-    treeTraverse(tree->right, d + 1, m);
+void treeTraverse(node* root, int d, map<int, vector<int>>& map){
+    if(root == nullptr){ return; }
+    
+    map[d].push_back(root->data);
+    treeTraverse(root->left, d-1, map);
+    treeTraverse(root->right, d+1, map);
     return;
 }
-
 void verticalOrderPrint(node *root)
 {
-    if (root == nullptr)
-    {
-        return;
-    }
-    int d = 0;
     map<int, vector<int>> m;
-    treeTraverse(root, d, m);
-    for (auto vec : m)
-    {
-        int key = vec.first;
-        cout << key << " : ";
-        vector<int> line = vec.second;
-        for (auto ele : line)
-        {
-            cout << ele << " ";
-        }
-        cout << endl;
+    treeTraverse(root, 0, m);
+    for(auto i : m){
+        for( auto x : i.second) cout<<x<<" ";
+        cout<<endl;
     }
 }
 

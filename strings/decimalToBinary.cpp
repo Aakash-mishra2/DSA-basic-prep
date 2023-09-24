@@ -12,6 +12,16 @@ int decimalToBinary(int x)
     }
     return ans;
 }
+// int decimalToBinary(int x)
+// {
+//     int ans = 0, pow = 1;
+//     while(x>0){
+//         ans += (x%2)*pow;
+//         pow *= 10;
+//         x /= 2;
+//     }
+//     return ans;
+// }
 int main()
 {
     int n;

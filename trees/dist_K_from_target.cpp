@@ -19,57 +19,42 @@ public:
     node(int val) : data(val) {}
 };
 
-void nodesK_LevelsBelow(node *target, int k)
-{
-    if (k == 0)
-    {
-        cout << target->data << " ";
-    }
-    if (target->left)
-        nodesK_LevelsBelow(target->left, k - 1);
-    if (target->right)
-        nodesK_LevelsBelow(target->right, k - 1);
+void nodesKBelow(node* head, int K, vector<int>& answer){
+    if(head == nullptr){ return;}
+    if( K == 0 ) answer.push_back(head->data);
+    nodesKBelow(head->left, K-1, answer);
+    nodesKBelow(head->right, K-1, answer);
     return;
 }
 
-int printNodesAtDistanceK(node *root, node *target, int k)
+int requiredNodes(node *root, node *target, int k, vector<int> &answer)
 {
-    if (root == nullptr)
-    {
-        return -1;
-    }
-    if (root == target)
-    {
-        nodesK_LevelsBelow(root, k);
+    if(root == nullptr){ return -1; }
+    if(root == target){
+        nodesKBelow(target, k, answer);
         return 0;
     }
-    int DL = printNodesAtDistanceK(root->left, target, k);
-    if (DL != -1)
-    {
-        if (DL + 1 == k)
-        {
-            cout << root->data << " ";
-        }
-        else
-        {
-            nodesK_LevelsBelow(root->right, k - DL - 2);
-        }
-        return 1 + DL;
+    //find target in left and right subtree;
+    int DL = requiredNodes(root->left, target, k, answer);
+    if(DL != -1){ // found target in LeftST return 0 to parent node
+        if(1 + DL == k){    answer.push_back(root->data);}
+        else{   nodesKBelow(root->right, k-DL-2, answer); } //nodes in rightST
+        return 1+DL;
     }
-    int DR = printNodesAtDistanceK(root->right, target, k);
-    if (DR != -1)
-    {
-        if (DR + 1 == k)
-        {
-            cout << root->data << " ";
-        }
-        else
-        {
-            nodesK_LevelsBelow(root->left, k - DR - 2);
-        }
-        return 1 + DR;
+    int DR = requiredNodes(root->right, target, k, answer);
+    if(DR != -1){   // found target in rightST returns 0 to parent node
+        if(1 + DR == k) answer.push_back(root->data);
+        else{ nodesKBelow(root->left, k-DR-2, answer); }//add nodes in leftST 
+        return 1+DR;
     }
     return -1;
+}
+vector<int> nodesAtDistanceK(node *root, node *target, int k)
+{
+    vector<int> answer;
+    requiredNodes(root, target, k, answer);
+    sort(answer.begin(), answer.end());
+    return answer;
 }
 
 int main()
@@ -89,6 +74,10 @@ int main()
     node *target = root->left->right;
 
     int k = 2;
-    cout << printNodesAtDistanceK(root, target, k);
+    auto ans = nodesAtDistanceK(root, target, k);
+    for (auto i : ans)
+    {
+        cout << i << " ";
+    }
     return 0;
 }

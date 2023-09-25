@@ -24,42 +24,27 @@ public:
 };
 int heightOfTree(node *root)
 {
-    if (root == nullptr)
-    {
-        return 0;
-    }
-    int height = 0, leftH = 0, rightH = 0;
-    if (root->left != nullptr)
-        leftH = heightOfTree(root->left);
-    if (root->right != nullptr)
-        rightH = heightOfTree(root->right);
-    height = 1 + max(leftH, rightH);
-    return height;
+    if(root == nullptr){ return 0;}
+    int hR = heightOfTree(root->right);
+    int hl = heightOfTree(root->left);
+    return max(hR, hl) + 1;
 }
 
 bool isHeightBalanced(node *root)
 {
-    if (root == nullptr)
-    {
-        return true;
-    }
-    int HL = 0, HR = 0;
-    bool lBal = true, rBal = true;
-    if (root->left)
-    {
-        lBal = isHeightBalanced(root->left);
-        HL = heightOfTree(root->left);
-    }
-    if (root->right)
-    {
-        rBal = isHeightBalanced(root->right);
-        HR = heightOfTree(root->right);
-    }
 
-    int diff = abs(HL - HR);
-    if (diff <= 1 and lBal and rBal)
-        return true;
-    return false;
+    bool lbal = true, rbal = true; int hL = 0, hR= 0;
+    
+    if(root->left){
+    lbal = isHeightBalanced(root->left);
+    hL = heightOfTree(root->left);
+    }
+    if(root->right){
+    rbal = isHeightBalanced(root->right);
+    hR = heightOfTree(root->right);
+    }
+    int diff = abs(hL - hR);
+    return diff <= 1 and lbal and rbal;
 }
 int main()
 {
@@ -71,9 +56,9 @@ int main()
     root->left->right = new node(5);
     root->right->right = new node(6);
     root->left->right->left = new node(7);
-    root->left->right->right = new node(8);
-    root->left->right->right->left = new node(9);
-    root->left->right->right->right = new node(10);
+    root->right->left = new node(8);
+    root->right->left->left = new node(9);
+    root->right->left->right = new node(10);
     // remove last 2 lines = balanced else not
     node *target = root->left->right;
 
@@ -81,5 +66,6 @@ int main()
         cout << "height balanced";
     else
         cout << "not height balanced.";
+    cout<<" \n height is "<<heightOfTree(root);
     return 0;
 }

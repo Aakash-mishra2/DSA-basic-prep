@@ -27,6 +27,7 @@ char *mytokenizer(char *input, char delimiter)
         {
             token[i] = '\0';
             str = str + i + 1;
+            return token;
         }
     }
 

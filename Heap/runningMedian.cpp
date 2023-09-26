@@ -13,51 +13,37 @@ void file_io()
 int main()
 {
     file_io();
-    priority_queue< int, vector<int>, greater<int>> rightHeap;
+    priority_queue<int, vector<int>, greater<int>>rightHeap;
     priority_queue<int> leftHeap;
 
-    int d;
-    cin>>d;
-    leftHeap.push(d);
+    int d; cin>>d;
+        float median = d;
+        leftHeap.push(d);
+        cout<<median<<" ";
+        cin>>d;
 
-    float med = d;
-    cout<<med <<" ";
+    while(d!= -1){
 
-    cin>>d;
-    while( d!= -1){
-        if(leftHeap.size() == rightHeap.size()){
-          if( d < med){
-            leftHeap.push(d);
-            med = leftHeap.top();
-          }
-          else{
-            rightHeap.push(d);
-            med = rightHeap.top();
-          }
+        if(leftHeap.size() == rightHeap.size()){ 
+            if(d < median){    leftHeap.push(d); median = leftHeap.top(); }
+            else {  rightHeap.push(d); median = rightHeap.top(); }
         }
         else if(leftHeap.size() > rightHeap.size()){
-            if(d<med){
-            rightHeap.push(leftHeap.top());
-            leftHeap.pop();
-            leftHeap.push(d);
+            if(d > median){ rightHeap.push(d); }
+            else{
+                rightHeap.push(leftHeap.top()); 
+                leftHeap.pop();  leftHeap.push(d);
             }
-            else{ 
-                rightHeap.push(d);
-            }
-            med = static_cast<float>(leftHeap.top() + rightHeap.top())/2;
+            median = static_cast<float>(leftHeap.top() + rightHeap.top())/2;
         }
-        else{
-            if( d<med){ 
-                leftHeap.push(d);
-            }
+        else{   
+            if( d < median){ leftHeap.push(d); }
             else{
                 leftHeap.push(rightHeap.top());
-                rightHeap.pop();
-                rightHeap.push(d);
+                rightHeap.pop(); rightHeap.push(d);
             }
-            med = static_cast<float>(leftHeap.top() + rightHeap.top())/2;
+            median = static_cast<float>(leftHeap.top() + rightHeap.top())/2;
         }
-        cout<<med<<" ";
-        cin>>d;
+        cout<<median<<" "; cin>>d;    
     }
 }

@@ -10,7 +10,7 @@ void file_io()
     freopen("output.txt", "w", stdout);
 #endif
 }
-
+//sort large no of elements in O(NK*log(k) + NK*log(K));
 vector<int> mergeKsorted(vector<vector<int>> &arr){
     int rows = arr.size();
     vector<int> ans;

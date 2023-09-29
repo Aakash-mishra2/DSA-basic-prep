@@ -45,6 +45,31 @@ public:
             cout << endl;
         }
     }
+/* 29 sept
+int sssp(int source, int destination)
+    {
+        set<pair<int, int>> S;
+        vector<int> dist(V, INT_MAX);
+        S.insert({0, source}); //distance, node
+        while(!S.empty()){
+            auto it = S.begin();
+            int node = (*it).second;
+            int d = (*it).first;
+            S.erase(it);
+            for(auto nbr : l[node]){
+                if( dist[nbr.second] > nbr.first + d ){
+                    if(S.find({dist[nbr.second], nbr.second}) != S.end()){
+                        S.erase({dist[nbr.second], nbr.second});
+                    }
+                    dist[nbr.second] = nbr.first + d;
+                    S.insert({dist[nbr.second], nbr.second});
+                }
+            }
+        }
+        return dist[destination];
+    } 
+};
+*/
     int sssp(int source, int destination)
     {
         set<pair<int, int>> S;

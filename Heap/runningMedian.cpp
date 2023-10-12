@@ -1,3 +1,6 @@
+//lc 4; median of sorted arrays: corner: empty error cases;
+//https://leetcode.com/problems/median-of-two-sorted-arrays/description/
+
 #include <bits/stdc++.h>
 using namespace std;
 void file_io()

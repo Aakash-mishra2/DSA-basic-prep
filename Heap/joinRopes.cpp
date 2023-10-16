@@ -13,19 +13,15 @@ public:
 /*
 int joinRopes(vector<int> &ropes)
 {
-    priority_queue<int, vector<int>, greater<int>> pq;
-    for( auto i : ropes ){ pq.push(i); }
+    priority_queue<int, vector<int>, greater<int>> p;
+    for(auto i : ropes){ p.push(i); }
     int cost = 0;
-    while(pq.size()>1){
-        int c1 = pq.top();
-        cost += c1;
-        pq.pop();
-        if(!pq.empty()){
-            int c2 = pq.top();
-            cost += c2;
-            pq.pop();
-            pq.push(c1+c2);
-        }
+    while(p.size() > 1){
+        int x = p.top(); p.pop();
+        int y = p.top(); p.pop();
+        int newRope = x + y;
+        cost += newRope;
+        p.push(newRope);
     }
     return cost;
 }

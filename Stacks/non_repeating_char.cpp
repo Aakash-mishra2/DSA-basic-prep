@@ -12,23 +12,16 @@ void file_io(){
 
 int main(){
     file_io();
-    string s;
-    cin>>s;
-    queue<char> q;
-    unordered_map<char, int> m;
-    for( int i = 0; i<s.length(); i++){
-        m[s[i]]++;
-        if(m[s[i]] == 1){ q.push(s[i]); }
-        while(!q.empty()){
-            if(m[q.front()] == 1){
-                cout<<q.front()<<" ";
-                break;
-            }
-            else{
-                q.pop();
-            }
+   string input; cin>>input;
+    unordered_map<char, int> M; queue<char> q;
+    for(int i = 0; i<input.length(); i++){
+        M[input[i]]++;
+        if(M[input[i]] == 1){ q.push(input[i]); }
+        while( M[q.front()] > 1){
+            q.pop();
         }
-        if(q.empty()) cout<<'-1'<<" ";
+        if( q.empty()){ cout<<"-1 ";}
+        else cout<<q.front()<<" ";
     }
     return 0;
 }

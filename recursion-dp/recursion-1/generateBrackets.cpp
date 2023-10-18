@@ -1,6 +1,28 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+/*
+void genPar(int n, string o, vector<string>& ans, int open = 0, int close = 0){
+        if( close == n ){
+            ans.push_back(o);
+            return;
+        }
+        if(open <= n-1){
+            genPar(n, o + '(', ans, open + 1, close);
+        }
+        if( close < open){
+            genPar(n, o + ')', ans, open, close + 1);
+        }
+        return;
+    }
+    vector<string> generateParenthesis(int n) {
+       vector<string> ans;
+       string o = "";
+       genPar(n, o, ans); 
+        return ans;
+    }
+*/
+
 void generateBrackets(int n, string ans, int open = 0, int close = 0, int i = 0)
 {
     if (i == 2 * n)

@@ -22,29 +22,29 @@ void genPar(int n, string o, vector<string>& ans, int open = 0, int close = 0){
         return ans;
     }
 */
+#include<bits/stdc++.h>
+using namespace std;
 
-void generateBrackets(int n, string ans, int open = 0, int close = 0, int i = 0)
-{
-    if (i == 2 * n)
-    {
-        cout << ans << endl;
+void generateBrackets(int n, int i, string str, int open, int close){
+    if ( i == 2*n){
+        cout<<str<<endl;
         return;
     }
-    if (open < n)
-    {
-        generateBrackets(n, ans + '(', open + 1, close, i + 1);
+    if( open < n){
+        generateBrackets(n, i+1, str+'(', open+1, close);
     }
-    if (close < open)
-    {
-        generateBrackets(n, ans + ')', open, close + 1, i + 1);
+    if( close < open){
+        generateBrackets(n, i+1, str+')', open, close+1);
     }
+    return;
 }
 
 int main()
 {
-    int n;
-    cin >> n;
-    string ans = "";
-    generateBrackets(n, ans);
+    int t; cin>>t;
+    while( t-- ){
+        int n; cin>>n;
+        generateBrackets(n, 0, "", 0, 0);
+    }
     return 0;
 }

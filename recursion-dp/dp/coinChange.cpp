@@ -30,6 +30,31 @@ void file_i_o(){
 	#endif
 }
 vector<int> coins {1, 3, 7, 10};
+// 
+// int coinsChange(vector<int> coins, int val){
+    
+//     vector<int> dp(val+1, 100000);
+//     dp[0] = 0;
+//     for(int i = 1; i<= val; i++){
+//         for( auto ele : coins ){
+//             if( i - ele >= 0 ){
+//                 dp[i] = min(dp[i], dp[i-ele] + 1);
+//             }
+//         }
+//     }
+//     return dp[val];
+// }
+
+// int main()
+// {
+//     vector<int> coins = {1, 3, 7, 10 };
+//     int val = 15;
+    
+//     cout<<coinsChange(coins, val);
+    
+//     return 0;
+// }
+//
 int coinsChange_BU(int n){
 	vector<int> dp(n+1, 0);
 	dp[0] = 0;

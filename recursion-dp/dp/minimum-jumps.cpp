@@ -20,19 +20,21 @@ int count(int arr[], int n, vector<int>& dp, int ind){
     }
 
 // recursive min array jumps
-int minArrayJumps (int ind, int n, vector<int> arr){
-    if( ind >= n-1 ){
-       // cout<<ind<<" return "<<endl;
-        return 0;
+int minArrayJumps(vector<int> steps){
+    int n = steps.size();
+    vector<int> dp( n, 1e9 + 7);
+    dp[n-1] = 0;
+    for(int i = n-2; i>= 0; i--){
+    int max_jumps = steps[i];
+        for(int j = 1; j<= max_jumps; j++){
+            if( i + j <= n-1){
+                dp[i] = min(dp[i], dp[i+j] + 1);
+            }
+        }
     }
-    int ans = 10000000, jumps = arr[ind];
-    for( int i = 1; i<=jumps; i++){
-        ans = min(ans, 1 + minArrayJumps(ind + i, n, arr));
-    }
-    //cout<<ind<<" "<<n<<endl;
-    return ans;
+    return dp[0];
 }
-    int minJumps(int arr[], int n){
+   int minJumps(int arr[], int n){
        vector<int> dp(n, 0);
        int ans = count(arr, n, dp, 0);
        if( ans == INT_MAX) return -1;

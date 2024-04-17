@@ -1,28 +1,24 @@
 #include <bits/stdc++.h>
 using namespace std;
 // think about how to print longest inc subseq vector as well or string;
-int longestIncSubsequence(vector<int> input)
-{
-    vector<int> dp(input.size(), 1);
-    for (int i = 1; i < dp.size(); i++)
-    {
-        for (int j = 0; j < i; j++)
-        {
-            if (input[j] <= input[i])
-                dp[i] = max(dp[i], dp[j] + 1);
+void longestIncreasingSubSeq(int ind, vector<int> values, int n){
+    
+    vector<int> dp(n, 1); int max_len;
+    dp[0] = 1;
+    for (int i = 1; i<n; i++) {
+        for(int j = 0; j<i; j++) {
+            if( values[j] < values[i])
+            dp[i] = max(dp[i], 1+dp[j]);
+            max_len = max(dp[i], max_len);
         }
     }
-    int max = 0;
-    for (auto a : dp)
-    {
-        if (a > max)
-        {
-            max = a;
-        }
-    }
-    return max;
+    
+    // for(auto a : dp){
+    //     cout<<a<<" ";
+    // }
+    cout<< max_len;
+    
 }
-
 int main()
 {
 

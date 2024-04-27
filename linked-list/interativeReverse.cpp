@@ -1,75 +1,101 @@
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
-void file_io(){
-    ios_base::sync_with_stdio;
-    cout.tie(0); cin.tie(0);
-    #ifndef ONLINE_JUDGE
-        freopen("../MORE_miscc/input.txt", "r", stdin);
-        freopen("../MORE_miscc/output.txt", "w", stdout);
-    #endif
-    }
-template <typename T>
-class Node
+
+class node
 {
 public:
-    T data;
-    Node *next;
-    Node(T val) : data(val), next(nullptr) {}
+    int data;
+    node *next;
+    node(int data)
+    {
+        this->data = data;
+        next = NULL;
+    }
 };
-template <typename T>
-void insertAtBeginning(Node<T> *&root, int newVal)
+// ---------- Link list ---------------//
+
+void insertAtHead(node *&head, int data)
 {
-    Node<T> *head = new Node<T>(newVal);
-    if (root == nullptr)
+    if (head == NULL)
     {
-        root = head;
+        head = new node(data);
+        return;
     }
-    else
-    {
-        head->next = root;
-        root = head;
-    }
+    node *n = new node(data);
+    n->next = head;
+    head = n;
 }
-template <typename t>
-void printLinkedList(Node<t> *root)
+void insertInMiddle(node *&root, int afterNode, int data)
 {
-    Node<t> *head = root;
-    cout << "Current \t Data \t NextNode" << endl;
-    while (head->next != nullptr)
+    if (root == NULL)
     {
-        cout << head << "\t" << head->data << "\t" << head->next << endl;
+        return;
+    }
+    node *temp = new node(data);
+    node *head = root;
+    while (head != nullptr and (head->data != afterNode))
+    {
         head = head->next;
     }
-    cout << head << "\t" << head->data << "\t" << head->next << endl;
+    if (head == nullptr)
+    {
+        cout << " Not found middle node";
+        return;
+    }
+    temp->next = head->next;
+    head->next = temp;
 }
-//in C++ *binds to the declarator not the type specifier. 
-//declarations are based on type of expressions not objects;
-template <typename T>
-void reverseList(Node<T> *&root)
+void printLL(node *head)
 {
-    if(root == nullptr){ return; }
-    Node<T> *temp = nullptr, *current = root, *prev = nullptr;
-    while(current!= nullptr){
+    while (head != NULL)
+    {
+        cout << head->data << "--->";
+        head = head->next;
+    }
+    cout << endl;
+}
+node *reverseLL(node *head)
+{
+    if (head == NULL or head->next == NULL)
+    {
+        return head;
+    }
+    node *s = reverseLL(head->next);
+    head->next->next = head;
+    head->next = NULL;
+    return s;
+}
+
+void iterativeRevLL(node *head)
+{
+    if (head == NULL)
+    {
+        return;
+    }
+    node *temp = NULL, *current = head, *prev = NULL;
+    while (head->next != NULL)
+    {
         temp = current->next;
         current->next = prev;
         prev = current;
         current = temp;
     }
-    root = prev;
+    temp = prev;
     return;
 }
+
 int main()
 {
-    file_io();
-    Node<int> *root = new Node<int>(3);
-    cout << "--NEW LINKED LIST-----" << endl;
-    insertAtBeginning<int>(root, 78);
-    insertAtBeginning<int>(root, 9);
-    insertAtBeginning<int>(root, 34);
-    insertAtBeginning<int>(root, 45);
-    printLinkedList<int>(root);
-    cout << " -- REVERSED LINKED LIST ------" << endl;
-    reverseList<int>(root);
-    printLinkedList<int>(root);
+    node *head = NULL;
+    insertAtHead(head, 4);
+    insertAtHead(head, 3);
+    insertAtHead(head, 2);
+    insertAtHead(head, 1);
+    insertAtHead(head, 0);
+    printLL(head);
+    insertInMiddle(head, 2, 27);
+    printLL(head);
+    head = reverseLL(head);
+    printLL(head);
     return 0;
 }

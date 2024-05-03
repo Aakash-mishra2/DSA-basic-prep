@@ -66,24 +66,25 @@ node *reverseLL(node *head)
     return s;
 }
 
-void iterativeRevLL(node *head)
+node *iterativeRevLL(node *head)
 {
-    if (head == NULL)
+    node *prev;
+    node *current = head;
+    if (head == nullptr)
     {
-        return;
+        return nullptr;
     }
-    node *temp = NULL, *current = head, *prev = NULL;
-    while (head->next != NULL)
+    node *temp = nullptr;
+    // ll must have 2 nodes to reverse this ll ;
+    while (current != nullptr)
     {
         temp = current->next;
         current->next = prev;
         prev = current;
         current = temp;
     }
-    temp = prev;
-    return;
+    return prev;
 }
-
 int main()
 {
     node *head = NULL;

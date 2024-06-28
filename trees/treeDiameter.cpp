@@ -43,6 +43,7 @@ public:
     int diameter;
 };
 // diameter is largest distance between any two nodes of a tree. like in circle diameter is distance between two farthest points.
+// tree diameter of a subtree might completely lie in it. LH - 1 + RH -1  + 2;
 HDpair treeDiameter(node *root)
 {
     HDpair answer;

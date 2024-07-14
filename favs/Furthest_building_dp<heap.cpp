@@ -25,7 +25,7 @@ public:
     }
     return dp[x][y] = max(left, max(temp, right));
 }
-// using recn-tle, dp-top/down-MLE... minHeap and counting
+// using recn-tle, dp-top/down-MLE... minHeap and counting time c O(n * log(k)) and space Comp O( log ( K))
     int furthestBuilding(vector<int>& heights, int bricks, int ladders) {
         priority_queue<int, vector<int>, greater<int>> pq;
         

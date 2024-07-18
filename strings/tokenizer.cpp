@@ -1,52 +1,48 @@
+/******************************************************************************
+
+Welcome to GDB Online.
+  GDB online is an online compiler and debugger tool for C, C++, Python, PHP, Ruby, 
+  C#, OCaml, VB, Perl, Swift, Prolog, Javascript, Pascal, COBOL, HTML, CSS, JS
+  Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
 #include <bits/stdc++.h>
 using namespace std;
 
-// string.c_str() return const char*;
-
-char *mytokenizer(char *input, char delimiter)
-{
-    static char *str = NULL;
-    if (input != NULL)
-    {
-        str = input;
-    }
-    if (str == NULL)
-    {
+char* stringTokenizer(char *str, char delim){
+    static char *input = NULL;
+    if(str != NULL){
+        input = str;
+    };
+    if( input == NULL){
         return NULL;
     }
-
-    char *token = new char[strlen(str) + 1];
+    char *token = new char[strlen(input) + 1];
     int i = 0;
-    for (; str[i] != '\0'; i++)
-    {
-        if (str[i] != delimiter)
-        {
-            token[i] = str[i];
-        }
-        else
-        {
+    for( ; input[i] != '\0'; i++){
+       
+        if( input[i] == delim){
+            input += i + 1;
             token[i] = '\0';
-            str = str + i + 1;
             return token;
         }
+        else 
+            token[i] = input[i];
     }
-
+    // out of the loop
     token[i] = '\0';
-    str = NULL;
+    input = NULL;
     return token;
 }
 
-int main()
-{
-    // string input = "My home is near form bus stop. ";
-    char input[1000];
-    cin.getline(input, 1000);
-
-    char *token = mytokenizer(input, ' ');
-    while (token != NULL)
-    {
-        cout << token << endl;
-        token = mytokenizer(NULL, ' ');
+int main(){
+    
+    char s[1000];
+    cin.getline(s, 1000);
+    char* token = stringTokenizer(s, ' ');
+    while( token != NULL){
+        cout<<token<<endl;
+        token = stringTokenizer(NULL, ' ');
     }
     return 0;
 }

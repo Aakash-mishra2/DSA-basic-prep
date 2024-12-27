@@ -36,10 +36,10 @@ node *preOrderbuildTree()
 }
 void levelOrderPrint(node *root)
 {
-    if (root == nullptr)
-    {
+    if (root == nullptr){
         return;
     }
+
     queue<node *> q;
     q.push(root);
     q.push(nullptr);
@@ -68,7 +68,7 @@ void levelOrderPrint(node *root)
     return;
 }
 // Todo: Replace with descendant Sum leaving leaf nodes intact
-/*
+
 int replaceWithSum(node *root)
 {
     int leftST = 0, temp = 0, rightST=0;
@@ -78,30 +78,29 @@ int replaceWithSum(node *root)
     root->data = leftST + rightST;
     return (temp + root->data);
 }
-*/
-int replaceWithSum(node *root)
-{
-    if (root == nullptr)
-    {
-        return 0;
-    }
-    if (root->left == nullptr and root->right == nullptr)
-    {
-        return root->data;
-    }
-    int temp = root->data;
-    int left = replaceWithSum(root->left);
-    int right = replaceWithSum(root->right);
-    root->data = left + right;
-    return (temp + root->data);
-}
+
+//replace with descendant sum leaving leaf nodes intact
+// int replaceWithSum(node *root)
+// {
+//     if(root == NULL) return 0;
+//     if(root->left == NULL and root->right==NULL) return root->data;
+    
+//     //recursive case
+//     int LS = replaceWithSum(root->left);
+//     int RS = replaceWithSum(root->right);
+
+//     int temp = root->data;
+//     root->data = LS + RS; 
+//     return root->data + temp;
+// }
 int main()
 {
     file_io();
     node *root = preOrderbuildTree();
     levelOrderPrint(root);
+
     cout << endl;
-    replaceWithSum(root);
-    levelOrderPrint(root);
+    cout<<replaceWithSum(root)<<endl;
+    //levelOrderPrint(root);
     return 0;
 }

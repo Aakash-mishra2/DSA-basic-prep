@@ -1,6 +1,6 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-void file_io()
+void file_i_o()
 {
     ios_base::sync_with_stdio;
     cout.tie(0);
@@ -10,45 +10,47 @@ void file_io()
     freopen("output.txt", "w", stdout);
 #endif
 }
-/*
-N = 9
-arr = {1 2 3 1 4 5 2 3 6}
-k = 3
-3 3 4 5 5 5 6
-*/
-void maxSubArray(vector<int> a, int k){
-    int i = 0;
-    deque<int> Q;
-    //process first k elements : find highest index 
+void maxSubArrayK(vector<int> a, int k)
+{
+    // algorithm
+    int n = a.size(), i = 0;
+    deque<int> Q(k); // hold indices
+    // 1. process only the first k elements
 
-    for( i = 0; i<k; i++){
-        while(!Q.empty() and a[Q.front()] < a[i]){
-            Q.pop_front();
-        }
+    for (i = 0; i < k; i++)
+    {
+        while (!Q.empty() && a[i] > a[Q.back()])
+            Q.pop_back();
+
         Q.push_back(i);
     }
-    //printing highest among first k elements
-    cout<<a[Q.front()]<<" ";
 
-    //process rest of elements
-    for(; i<a.size(); i++){
-        //remove elements from left when index lies outside current window
-        while(!Q.empty() and Q.front() <= i-k){
+    // 2. remaining the elements of the array
+    for (; i < n; i++)
+    {
+        // remove elements from left (contraction when an index lies outside the current window)
+
+        cout << a[Q.front()] << " ";
+
+        while (!Q.empty() and Q.front() <= i - k)
+        {
             Q.pop_front();
         }
 
-        //when greater element comes
-        while(!Q.empty() and a[Q.back()] < a[i]){
+        while (!Q.empty() && a[i] >= a[Q.back()])
             Q.pop_back();
-        }
+
+        // always
         Q.push_back(i);
-        cout<<a[Q.front()]<<" ";
     }
 }
-int main(){
+int main()
+{
+    file_i_o();
+    vector<int> arr{1, 2, 3, 1, 4, 5, 2, 3, 5};
+    int k = 3;
 
-    vector<int>arr = {1, 2, 3, 1, 4, 5, 2, 3, 6};
-    int K = 3;
-    maxSubArray(arr, K);
+    maxSubArrayK(arr, k);
+
     return 0;
 }

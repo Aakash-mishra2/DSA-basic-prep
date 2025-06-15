@@ -21,6 +21,21 @@ int pow(int a, int b){
 }
     return res;
 }
+
+long long fastPower(long long base, long long expo) {
+    long long result = 1;
+
+    while (expo > 0) {
+        if (expo & 1) {  // If the current bit is 1 (i.e., expo is odd)
+            result *= base;
+        }
+        base *= base;     // Square the base
+        expo >>= 1;       // Right shift expo (divide by 2)
+    }
+
+    return result;
+}
+
 int fastMultiply(int a, int b){
      ll res = 0;
 
